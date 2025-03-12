@@ -2,6 +2,9 @@ package br.com.fiap.restaurante.model;
 
 import java.util.List;
 
+import br.com.fiap.restaurante.exceptions.MesaInvalidaException;
+import br.com.fiap.restaurante.exceptions.PedidoInvalidoException;
+
 public class Pedido {
 
 	private int numMesa;
@@ -14,6 +17,16 @@ public class Pedido {
 		this.pratos = pratos;
 		this.bebidas = bebidas;
 	}
+	
+	public void fazerPedido() throws MesaInvalidaException, PedidoInvalidoException {
+		if (this.numMesa == 0) {
+			throw new MesaInvalidaException("Número da mesa inválido!");
+		}
+		if (this.pratos == null && this.bebidas == null) {
+			throw new PedidoInvalidoException("Precisa informar prato ou bebida!");
+		}
+	}
+	
 	
 	
 	public int getNumMesa() {

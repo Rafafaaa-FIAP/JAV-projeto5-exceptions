@@ -1,8 +1,13 @@
 package br.com.fiap.restaurante.teste;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
+import br.com.fiap.restaurante.exceptions.MesaInvalidaException;
+import br.com.fiap.restaurante.exceptions.PedidoInvalidoException;
 import br.com.fiap.restaurante.model.Cardapio;
+import br.com.fiap.restaurante.model.Pedido;
 import br.com.fiap.restaurante.model.Prato;
 
 public class Teste {
@@ -21,8 +26,14 @@ public class Teste {
 			Scanner entrada = new Scanner(System.in);
 			Prato prato = cardapio.getPratos().get(entrada.nextInt());
 			
+			List<Prato> listaPrato = new ArrayList<Prato>();
+			listaPrato.add(prato);
+			
 			System.out.println("O prato escolhido é: ");
 			prato.exibirPrato();
+			
+			Pedido pedido = new Pedido(1, listaPrato, null);
+			pedido.fazerPedido();
 			
 			entrada.close();
 		}
@@ -32,8 +43,11 @@ public class Teste {
 		catch (NullPointerException e) {
 			System.out.println("Erro de objeto null: " + e.getMessage());
 		}
-		catch (Exception e) {
-			System.out.println("Erro geral: " + e.getMessage());
+		catch (MesaInvalidaException e) {
+			System.out.println("MesaInvalidaException: " + e.getMessage());
+		}
+		catch (PedidoInvalidoException e) {
+			System.out.println("PedidoInvalidoException: " + e.getMessage());
 		}
 	}
 
